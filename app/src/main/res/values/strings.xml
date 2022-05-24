@@ -48,4 +48,6 @@
     <string name="inputtext1">Misal: Ukuran font terlalu kecil, button tidak bisa diklik, dll</string>
     <string name="pertanyaan2">Menurut Anda, apa saran yang bisa membuat aplikasi kami jauh lebih baik? Silahkan tuliskan saran Anda di sini</string>
     <string name="inputtext2">Misal: Sebaiknya perbesar lagi ukuran font, dll</string>
+    <string name="belum_ada_transaksi">Belum ada transaksi</string>
+    <string name="sudah_bayar">Sudah \n Bayar</string>
 </resources>

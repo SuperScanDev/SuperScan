@@ -9,9 +9,9 @@
         <entry key="..\:/Jam/Ilkom/Android/KOTLIN/Dicoding/SuperScan/app/src/main/res/drawable/logindisable.xml" value="0.1" />
         <entry key="..\:/Jam/Ilkom/Android/KOTLIN/Dicoding/SuperScan/app/src/main/res/layout/activity_about_us.xml" value="0.4" />
         <entry key="..\:/Jam/Ilkom/Android/KOTLIN/Dicoding/SuperScan/app/src/main/res/layout/activity_camera.xml" value="0.13134057971014493" />
-        <entry key="..\:/Jam/Ilkom/Android/KOTLIN/Dicoding/SuperScan/app/src/main/res/layout/activity_history.xml" value="0.11398176291793313" />
+        <entry key="..\:/Jam/Ilkom/Android/KOTLIN/Dicoding/SuperScan/app/src/main/res/layout/activity_history.xml" value="0.264" />
         <entry key="..\:/Jam/Ilkom/Android/KOTLIN/Dicoding/SuperScan/app/src/main/res/layout/activity_login.xml" value="0.176" />
-        <entry key="..\:/Jam/Ilkom/Android/KOTLIN/Dicoding/SuperScan/app/src/main/res/layout/activity_main.xml" value="0.16326530612244897" />
+        <entry key="..\:/Jam/Ilkom/Android/KOTLIN/Dicoding/SuperScan/app/src/main/res/layout/activity_main.xml" value="0.3276661514683153" />
         <entry key="..\:/Jam/Ilkom/Android/KOTLIN/Dicoding/SuperScan/app/src/main/res/layout/activity_payment_detail.xml" value="0.264" />
         <entry key="..\:/Jam/Ilkom/Android/KOTLIN/Dicoding/SuperScan/app/src/main/res/layout/activity_product_detail.xml" value="0.33466666666666667" />
         <entry key="..\:/Jam/Ilkom/Android/KOTLIN/Dicoding/SuperScan/app/src/main/res/layout/activity_profile.xml" value="0.1" />
@@ -19,7 +19,8 @@
         <entry key="..\:/Jam/Ilkom/Android/KOTLIN/Dicoding/SuperScan/app/src/main/res/layout/activity_register.xml" value="0.22826086956521738" />
         <entry key="..\:/Jam/Ilkom/Android/KOTLIN/Dicoding/SuperScan/app/src/main/res/layout/activity_splash_screen.xml" value="0.22826086956521738" />
         <entry key="..\:/Jam/Ilkom/Android/KOTLIN/Dicoding/SuperScan/app/src/main/res/layout/customtoolbar.xml" value="0.20652173913043478" />
-        <entry key="..\:/Jam/Ilkom/Android/KOTLIN/Dicoding/SuperScan/app/src/main/res/layout/historyitem.xml" value="0.4" />
+        <entry key="..\:/Jam/Ilkom/Android/KOTLIN/Dicoding/SuperScan/app/src/main/res/layout/historyitem.xml" value="0.30864197530864196" />
+        <entry key="..\:/Jam/Ilkom/Android/KOTLIN/Dicoding/SuperScan/app/src/main/res/layout/historyitemempty.xml" value="0.11398176291793313" />
         <entry key="..\:/Jam/Ilkom/Android/KOTLIN/Dicoding/SuperScan/app/src/main/res/layout/nav_header.xml" value="0.17936117936117937" />
         <entry key="..\:/Jam/Ilkom/Android/KOTLIN/Dicoding/SuperScan/app/src/main/res/layout/productdetailitems.xml" value="0.2465331278890601" />
         <entry key="..\:/Jam/Ilkom/Android/KOTLIN/Dicoding/SuperScan/app/src/main/res/menu-v26/menu_nav.xml" value="0.1" />

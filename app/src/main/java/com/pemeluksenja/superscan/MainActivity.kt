@@ -18,6 +18,7 @@ import com.pemeluksenja.superscan.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
     private lateinit var bind: ActivityMainBinding
+
     override fun onRequestPermissionsResult(
         requestCode: Int,
         permissions: Array<String>,
@@ -73,6 +74,10 @@ class MainActivity : AppCompatActivity() {
                 R.id.tentangKami -> startActivity(Intent(this, AboutUsActivity::class.java))
             }
             true
+        }
+        //navigate to history page
+        bind.seeMore.setOnClickListener {
+            startActivity(Intent(this, HistoryActivity::class.java))
         }
 
     }
