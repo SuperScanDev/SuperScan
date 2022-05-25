@@ -1,6 +1,7 @@
 const express = require('express');
 const validator = require('validator');
-// const bcrypt = require('bcrypt');
+const bcrypt = require('bcrypt');
+const {nanoid} = require('nanoid');
 const registerRouter = express.Router();
 
 let users = [
@@ -18,27 +19,41 @@ registerRouter.get('/', (req, res) => {
 
 registerRouter.post('/', (req, res) => {
   const user = users.find((user) => user.email === req.body.email);
-  // res.send(datum);
-  const emailValid = validator.isEmail(req.body.email);
 
-  //cek apakah usernamenya sama
+  // add userId
+  const id = nanoid();
+  const userId = 'user-' + id;
+
+  const emailValid = validator.isEmail(req.body.email);
+  const hash = bcrypt.hashSync(req.body.password, 15);
+
+  // Check whether the email has been used or not
   if (user) {
     res.status(401);
     res.json({
       error: true,
-      message: 'Username is created. Please fill with another username',
+      message: 'email has been created. Please fill with another email',
     });
   }
 
-  //cek apakah email valid
+  // Check whether email is valid or not
   else if (!emailValid) {
     res.status(401);
     res.json({
       error: true,
       message: 'Email is not valid',
     });
-  } else {
-    users.push(req.body);
+  }
+
+  // push the new data to the database/object
+  else {
+    const user = {
+      userId,
+      name: req.body.name,
+      email: req.body.email,
+      password: hash,
+    };
+    users.push(user);
     res.status(201);
     res.json({
       error: false,
