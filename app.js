@@ -1,7 +1,8 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const registerRouter = require('./routes/register.js');
-const loginRouter = require('./routes/login.js');
+const registerRouter = require('./routes/registerRouter.js');
+const loginRouter = require('./routes/loginRouter.js');
+
 const app = express();
 
 const port = 3000;
