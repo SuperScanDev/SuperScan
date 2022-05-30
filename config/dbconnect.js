@@ -1,7 +1,3 @@
-module.exports = {
-  DATABASE: 'superscan',
-  USERNAME: 'root',
-  PASSWORD: '',
-  HOST: 'localhost',
-  DIALECT: 'mysql',
-};
+const mongoose = require('mongoose');
+
+mongoose.connect('mongodb://127.0.0.1:27017/superscan', {});
