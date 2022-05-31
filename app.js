@@ -1,18 +1,35 @@
 const express = require('express');
-const bodyParser = require('body-parser');
-const registerRouter = require('./routes/registerRouter.js');
-const loginRouter = require('./routes/loginRouter.js');
+const dotenv = require('dotenv');
+const dbconnect = require("./config/dbconnect");
+const authRouter = require('./routes/authRouter.js');
+const morgan = require('morgan')
 
-require('./config/dbconnect');
+//retrieve and load .env file
+dotenv.config({path: "./config/config.env"})
+
+//connect to MongoDB
+dbconnect()
 
 const app = express();
 
-const port = 3000;
+//body parser
+app.use(express.json());
+app.use(express.urlencoded({extended: false}))
 
-app.use(bodyParser.json());
-app.use('/register', registerRouter);
-app.use('/login', loginRouter);
+//logging
+app.use(morgan("dev"))
 
-app.listen(port, () => {
-  console.log(`Server is running on: http://localhost:3000`);
-});
+app.use((error, req, res, next)=> {
+  const statusCode = 200 ? 500 : req.statusCode
+  res.status(statusCode)
+  res.json({message: error.message})
+})
+
+
+//routes
+app.use('/', authRouter);
+
+//For security, please write port number in .env file
+const port = process.env.PORT || process.env.PORT_ALTERNATIVE
+app.listen(port, console.log(`Server is running on Port: http://localhost:${port}`));
+
