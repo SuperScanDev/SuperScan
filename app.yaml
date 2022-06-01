@@ -1,9 +1,13 @@
-runtime: nodejs
+runtime: nodejs16
 
 instance_class: F2
 
 env_variables:
   bucket_name: superscan-gcs-bucket
+  PORT: 3000
+  RANDOM_AVA: https://avatars.dicebear.com/4.6/api/micah/${name}.svg
+  PORT_ALTERNATIVE: 3001
+  TOKEN_SECRET_KEY: SUPERSCANDEV
 
 handlers:
   - url: /stylesheets
