@@ -46,11 +46,6 @@ app.use((error, req, res, next) => {
 app.use('/', authRouter);
 app.use('/', rateRouter);
 
-// for deployment testing purpose, please delete code below after the deployment success
-app.get('/', (req, res) => {
-  res.send('SuperScan is running');
-});
-
 //For security, please write port number in .env file
 const port = process.env.PORT || process.env.PORT_ALTERNATIVE;
 app.listen(

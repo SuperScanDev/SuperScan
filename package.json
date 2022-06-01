@@ -4,7 +4,7 @@
   "description": "Superscan's APIs",
   "main": "app.js",
   "scripts": {
-    "server": "nodemon app"
+    "start": "node app.js"
   },
   "author": {
     "name": "Ikhsan Agil Kusuma",
@@ -29,6 +29,6 @@
     "nodemon": "^2.0.16"
   },
   "engines": {
-    "node": "16.15.0"
+    "node": "16.1.0"
   }
 }
