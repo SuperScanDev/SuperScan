@@ -1,11 +1,8 @@
 const bcrypt = require('bcryptjs');
 const User = require('../models/userModel');
-const {createAvatar} = require('@dicebear/avatars');
-const style = require('@dicebear/micah');
 const validator = require('validator');
-const generateToken = require('../utils/generateToken');
+const {generateToken} = require('../middleware/jsonwebtoken');
 
-// Login process
 const login = async (req, res) => {
   // const emailValid = validator.isEmail(req.body.email);
   const userFind = await User.findOne({email: req.body.email});
@@ -33,7 +30,7 @@ const login = async (req, res) => {
         loginResult: {
           userId: userFind._id,
           name: userFind.name,
-          token: generateToken(userFind._id),
+          token: generateToken(userFind._id)
         },
       });
     }
@@ -46,40 +43,39 @@ const login = async (req, res) => {
   }
 };
 
-// Register process
 const register = async (req, res) => {
-  let email = req.body.email;
-  const hashPassword = bcrypt.hashSync(req.body.password, 15);
+    let email = req.body.email;
+    const hashPassword = bcrypt.hashSync(req.body.password, 15);
 
-  const userFind = await User.findOne({email: email});
-  const emailValid = validator.isEmail(req.body.email);
-  // Check whether the email has been used or not
-  if (userFind) {
-    res.status(401);
-    res.json({
-      error: true,
-      message: 'Email has been used. Please use another email',
-    });
-  }
-
-  // Check whether email is valid or not
-  else if (!emailValid) {
-    res.status(401);
-    res.json({
-      error: true,
-      message: 'Email is not valid',
-    });
-  }
-
-  // push the new data to the database/object
-  else {
-    const user = await User.create({
-      name: req.body.name,
-      email: req.body.email,
-      password: hashPassword,
-      avatar: `https://avatars.dicebear.com/4.6/api/micah/${req.body.name}.svg`,
-    });
-    if (user) {
+    const userFind = await User.findOne({email: email});
+    const emailValid = validator.isEmail(req.body.email);
+    // Check whether the email has been used or not
+    if (userFind) {
+      res.status(401);
+      res.json({
+        error: true,
+        message: 'Email has been used. Please use another email',
+      });
+    }
+  
+    // Check whether email is valid or not
+    else if (!emailValid) {
+      res.status(401);
+      res.json({
+        error: true,
+        message: 'Email is not valid',
+      });
+    }
+    
+    // push the new data to the database/object
+    else {
+      const user = await User.create({
+        name: req.body.name,
+        email: req.body.email,
+        password: hashPassword,
+        avatar: `https://avatars.dicebear.com/4.6/api/micah/${req.body.name}.svg`
+      });
+      if (user){
       res.status(201);
       res.json({
         _id: user._id,
@@ -87,10 +83,10 @@ const register = async (req, res) => {
         message: 'User Created',
       });
     }
-  }
-};
+    }
+  };
 
 module.exports = {
-  login,
-  register,
+    login, 
+    register
 };

@@ -11,16 +11,17 @@
     "authorSecond": "Abdullah Azzam"
   },
   "dependencies": {
-    "@dicebear/avatars": "^4.10.2",
-    "@dicebear/micah": "^4.10.2",
     "bcryptjs": "^2.4.3",
     "connect-mongo": "^4.6.0",
     "dotenv": "^16.0.1",
     "express": "^4.18.1",
+    "express-async-handler": "^1.2.0",
+    "express-session": "^1.17.3",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^6.3.5",
     "morgan": "^1.10.0",
     "nodemon": "^2.0.16",
+    "passport": "^0.6.0",
     "uuid": "^8.3.2",
     "validator": "^13.7.0"
   },
