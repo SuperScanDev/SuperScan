@@ -21,6 +21,11 @@ const app = express();
 app.use(express.urlencoded({extended: false}));
 app.use(express.json());
 
+//for deployment testing
+// app.get('/', (req, res) => {
+//     res.send('Hello, superscan is running now!');
+// })
+
 //logging
 app.use(morgan('dev'));
 
@@ -33,6 +38,7 @@ app.use(
     store: MongoStore.create({mongoUrl: process.env.MONGODB_URI}),
   })
 );
+
 app.use(passport.initialize());
 app.use(passport.session());
 
