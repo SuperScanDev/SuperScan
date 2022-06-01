@@ -1,6 +1,10 @@
-# SuperScan
+# Cloud Computing
 
-Repository ini digunakan sebagai wadah untuk berkolaborasi antar anggota tim untuk menyelesaikan proyek aplikasi Superscan dalam rangka memenuhi persyaratan kelulusan Program Studi Independen Bangkit 2022 Kampus Merdeka. Anggota tim kami terdiri atas:
+Branch ini kami gunakan untuk menampung kodingan dan progress dari anggota cohort Cloud Computing team kami, yakni:
 
-1. _Abdullah Azzam (A2277F2377)_ - _MD_
-2. _Ikhsan Agil Kusuma (C2277F2375)_ - _CC_
+1. **Ikhsan Agil Kusuma (C2277F2375)** - **CC**
+
+
+
+Pada proses pengerjaan API, anggota cohort Cloud Computing team kami dibantu oleh: 
+2. **Abdullah Azzam (A2277F2377)** - **MD**
