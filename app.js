@@ -1,7 +1,12 @@
 const express = require('express');
+const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 const dbconnect = require('./config/dbconnect');
 const authRouter = require('./routes/authRouter.js');
+const rateRouter = require('./routes/rateRouter.js');
+const passport = require('passport');
+const session = require('express-session');
+const MongoStore = require('connect-mongo');
 const morgan = require('morgan');
 
 //retrieve and load .env file
@@ -13,11 +18,23 @@ dbconnect();
 const app = express();
 
 //body parser
-app.use(express.json());
 app.use(express.urlencoded({extended: false}));
+app.use(express.json());
 
 //logging
 app.use(morgan('dev'));
+
+//initialize session
+app.use(
+  session({
+    secret: 'keyboard cat',
+    resave: false,
+    saveUninitialized: false,
+    store: MongoStore.create({mongoUrl: process.env.MONGODB_URI}),
+  })
+);
+app.use(passport.initialize());
+app.use(passport.session());
 
 app.use((error, req, res, next) => {
   const statusCode = 200 ? 500 : req.statusCode;
@@ -27,10 +44,11 @@ app.use((error, req, res, next) => {
 
 //routes
 app.use('/', authRouter);
+app.use('/', rateRouter);
 
-// for deployment testing, please delete after testing is success.
+// for deployment testing purpose, please delete code below after the deployment success
 app.get('/', (req, res) => {
-  res.send('SuperScan Server is running');
+  res.send('SuperScan is running');
 });
 
 //For security, please write port number in .env file
