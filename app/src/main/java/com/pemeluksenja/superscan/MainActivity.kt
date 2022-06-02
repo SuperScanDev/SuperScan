@@ -2,11 +2,14 @@ package com.pemeluksenja.superscan
 
 import android.Manifest
 import android.content.ActivityNotFoundException
+import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
 import android.view.Gravity
+import android.view.Menu
+import android.view.MenuItem
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
@@ -79,7 +82,32 @@ class MainActivity : AppCompatActivity() {
         bind.seeMore.setOnClickListener {
             startActivity(Intent(this, HistoryActivity::class.java))
         }
+    }
 
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        val inflaterMenu = menuInflater
+        inflaterMenu.inflate(R.menu.menu, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.app_bar_settings -> {
+                val context = this
+                val pref = context.getSharedPreferences(
+                    R.string.tokenPref.toString(),
+                    Context.MODE_PRIVATE
+                )
+                val editor = pref.edit()
+                editor.remove(R.string.tokenValue.toString())
+                editor.remove(getString(R.string.email))
+                editor.remove(getString(R.string.password))
+                editor.apply()
+                startActivity(Intent(this, LoginActivity::class.java))
+                finish()
+            }
+        }
+        return super.onOptionsItemSelected(item)
     }
     private fun hubKami(){
         val emailIntent = Intent(Intent.ACTION_SENDTO)

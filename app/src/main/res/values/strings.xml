@@ -50,4 +50,7 @@
     <string name="inputtext2">Misal: Sebaiknya perbesar lagi ukuran font, dll</string>
     <string name="belum_ada_transaksi">Belum ada transaksi</string>
     <string name="sudah_bayar">Sudah \n Bayar</string>
+    <string name="tokenPref">Token Preferences</string>
+    <string name="tokenValue">Token Value</string>
+    <string name="kirim">Kirim</string>
 </resources>

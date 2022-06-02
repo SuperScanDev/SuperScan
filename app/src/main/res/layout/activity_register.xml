@@ -15,42 +15,55 @@
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/login" />
 
+    <com.pemeluksenja.superscan.registercustom.UsernameEditTextCustom
+        android:id="@+id/UsernameEditTextCustom"
+        android:layout_width="257dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:minHeight="48dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/registerTitle" />
+
     <com.pemeluksenja.superscan.logincustom.EmailEditTextCustom
         android:id="@+id/emailEditTextCustom"
         android:layout_width="257dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="25dp"
+        android:layout_marginTop="24dp"
         android:minHeight="48dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/UsernameEditTextCustom" />
 
-    <com.pemeluksenja.superscan.registercustom.UsernameEditTextCustom
-        android:id="@+id/UsernameEditTextCustom"
+    <com.pemeluksenja.superscan.registercustom.RegisterButtonCustom
+        android:id="@+id/registerButton"
         android:layout_width="257dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="38dp"
-        android:minHeight="48dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="44dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView2" />
+        app:layout_constraintTop_toBottomOf="@+id/passwordEditTextCustom" />
 
     <com.pemeluksenja.superscan.logincustom.PasswordEditTextCustom
         android:id="@+id/passwordEditTextCustom"
         android:layout_width="257dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="25dp"
+        android:layout_marginTop="24dp"
         android:minHeight="48dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/emailEditTextCustom" />
 
-    <com.pemeluksenja.superscan.registercustom.RegisterButtonCustom
-        android:id="@+id/registerButton"
-        android:layout_width="257dp"
-        android:layout_height="48dp"
-        android:layout_marginTop="45dp"
+    <TextView
+        android:id="@+id/registerTitle"
+        style="@style/textSizeAndStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="@string/register"
+        android:textColor="@color/teal_darker"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/passwordEditTextCustom" />
+        app:layout_constraintTop_toBottomOf="@+id/imageView2" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -9,6 +9,11 @@ import android.util.Patterns
 import android.widget.EditText
 import android.widget.Toast
 import com.pemeluksenja.superscan.databinding.ActivityRegisterBinding
+import com.pemeluksenja.superscan.model.Register
+import com.pemeluksenja.superscan.retrofit.APIConfiguration
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class RegisterActivity : AppCompatActivity() {
     private lateinit var bind: ActivityRegisterBinding
@@ -25,21 +30,56 @@ class RegisterActivity : AppCompatActivity() {
             val password = findViewById<EditText>(R.id.passwordEditTextCustom)
             if (email !== null && name !== null && password !== null) {
                 when {
-                    email.length() < 6 -> {
-                        email.error = "Email harus lebih panjang dari 6 karakter"
+                    email.length() == 0 -> {
+                        email.error = "Email tidak boleh kosong"
                     }
-                    password.length() < 6 -> {
-                        password.error = "Password harus lebih panjang dari 6 karakter"
+                    password.length() == 0 -> {
+                        password.error = "Password Email tidak boleh kosong"
                     }
-                    name.length() < 6 -> {
-                        name.error = "Nama harus lebih panjang dari 6 karakter"
+                    name.length() == 0 -> {
+                        name.error = "Nama Email tidak boleh kosong"
                     }
                     !isValidEmail(email.text.toString()) -> {
                         email.error = "Invalid Email"
                     }
+                    else -> {
+                        val userName = name.text.toString()
+                        val userEmail = email.text.toString()
+                        val userPassword = password.text.toString()
+                        register(userName, userEmail, userPassword)
+                    }
                 }
             }
         }
+    }
+    private fun register(name: String, email: String, password: String) {
+        val model = Register(name, email, password)
+        val client = APIConfiguration.getAPIServices().register(model)
+        client.enqueue(object : Callback<Register> {
+            override fun onResponse(
+                call: Call<Register>,
+                response: Response<Register>
+            ) {
+                if (response.isSuccessful) {
+                    val resBody = response.body()
+                    Log.d("RegisterResponseBody: ", resBody.toString())
+                    Toast.makeText(this@RegisterActivity, "Register Berhasil", Toast.LENGTH_SHORT)
+                        .show()
+                    startActivity(Intent(this@RegisterActivity, LoginActivity::class.java))
+                }
+                else if (!response.isSuccessful){
+                    val resBody = response.message().toString()
+                    Toast.makeText(this@RegisterActivity, resBody, Toast.LENGTH_SHORT)
+                        .show()
+                    Log.d("ErrorMessage: ", resBody)
+                }
+            }
+
+            override fun onFailure(call: Call<Register>, t: Throwable) {
+                Toast.makeText(this@RegisterActivity, "${t.message}", Toast.LENGTH_SHORT).show()
+                Log.e(TAG, "onFailure: ${t.message}")
+            }
+        })
     }
 
 

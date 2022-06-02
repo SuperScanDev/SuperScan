@@ -14,8 +14,20 @@ class SplashScreenActivity : AppCompatActivity() {
         supportActionBar?.hide()
         val handlerSplash = Handler(Looper.getMainLooper())
         handlerSplash.postDelayed({
-            val splashScreen = Intent(this@SplashScreenActivity, MainActivity::class.java)
-            startActivity(splashScreen)
+            var context = application
+            var sharedPref = context.getSharedPreferences(
+                R.string.tokenPref.toString(),
+                Context.MODE_PRIVATE
+            )
+            var token = sharedPref.getString(R.string.tokenValue.toString(), "")
+
+            if (token == ""){
+                val splashScreen = Intent(this@SplashScreenActivity, LoginActivity::class.java)
+                startActivity(splashScreen)
+            } else {
+                val splashScreen = Intent(this@SplashScreenActivity, MainActivity::class.java)
+                startActivity(splashScreen)
+            }
             finish()
         }, timeInMilliSecond)
     }
