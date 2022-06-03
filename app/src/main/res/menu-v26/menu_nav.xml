@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view"
+    >
+    <item
+        android:id="@+id/hub_kami"
+        android:title="@string/hub_kam"
+        android:icon="@drawable/ic_baseline_mail_outline_24"
+        android:iconTint="@color/white"/>
+    <item
+        android:id="@+id/beriPenilaian"
+        android:title="@string/beri_penilaian"
+        android:icon="@drawable/ic_outline_rate_review_24"
+        android:iconTint="@color/white"
+        />
+    <item
+        android:id="@+id/tentangKami"
+        android:title="@string/tentang_kami"
+        android:icon="@drawable/ic_outline_info_24"
+        android:iconTint="@color/white"/>
+    <item android:title="@string/profile">
+        <menu>
+            <item
+                android:id="@+id/logout"
+                android:title="@string/logout"
+                android:icon="@drawable/ic_baseline_exit_to_app_24"/>
+        </menu>
+    </item>
+</menu>
