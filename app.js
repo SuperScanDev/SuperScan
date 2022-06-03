@@ -8,6 +8,7 @@ const passport = require('passport');
 const session = require('express-session');
 const MongoStore = require('connect-mongo');
 const morgan = require('morgan');
+const showDocsRouter = require('./routes/showDocsRouter');
 
 //retrieve and load .env file
 dotenv.config({path: './config/config.env'});
@@ -51,6 +52,7 @@ app.use((error, req, res, next) => {
 //routes
 app.use('/', authRouter);
 app.use('/', rateRouter);
+app.use('/', showDocsRouter);
 
 //For security, please write port number in .env file
 const port = process.env.PORT || process.env.PORT_ALTERNATIVE;
