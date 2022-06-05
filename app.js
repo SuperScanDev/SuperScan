@@ -1,17 +1,18 @@
-const express = require('express');
-const mongoose = require('mongoose');
-const dotenv = require('dotenv');
-const dbconnect = require('./config/dbconnect');
-const authRouter = require('./routes/authRouter.js');
-const rateRouter = require('./routes/rateRouter.js');
-const passport = require('passport');
-const session = require('express-session');
-const MongoStore = require('connect-mongo');
-const morgan = require('morgan');
-const showDocsRouter = require('./routes/showDocsRouter');
+const express = require("express");
+const mongoose = require("mongoose");
+const dotenv = require("dotenv");
+const dbconnect = require("./config/dbconnect");
+const authRouter = require("./routes/authRouter.js");
+const rateRouter = require("./routes/rateRouter.js");
+const fetchRouter = require("./routes/fetchRouter.js");
+const passport = require("passport");
+const session = require("express-session");
+const MongoStore = require("connect-mongo");
+const morgan = require("morgan");
+const showDocsRouter = require("./routes/showDocsRouter");
 
 //retrieve and load .env file
-dotenv.config({path: './config/config.env'});
+dotenv.config({path: "./config/config.env"});
 
 //connect to MongoDB
 dbconnect();
@@ -28,12 +29,12 @@ app.use(express.json());
 // })
 
 //logging
-app.use(morgan('dev'));
+app.use(morgan("dev"));
 
 //initialize session
 app.use(
   session({
-    secret: 'keyboard cat',
+    secret: "keyboard cat",
     resave: false,
     saveUninitialized: false,
     store: MongoStore.create({mongoUrl: process.env.MONGODB_URI}),
@@ -50,9 +51,10 @@ app.use((error, req, res, next) => {
 });
 
 //routes
-app.use('/', authRouter);
-app.use('/', rateRouter);
-app.use('/', showDocsRouter);
+app.use("/", authRouter);
+app.use("/", rateRouter);
+app.use("/", fetchRouter);
+app.use("/", showDocsRouter);
 
 //For security, please write port number in .env file
 const port = process.env.PORT || process.env.PORT_ALTERNATIVE;
