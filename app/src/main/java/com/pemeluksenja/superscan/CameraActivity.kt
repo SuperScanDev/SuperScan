@@ -1,14 +1,13 @@
 package com.pemeluksenja.superscan
 
+import android.content.Intent
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.WindowInsets
 import android.view.WindowManager
 import android.widget.Toast
-import androidx.camera.core.CameraSelector
-import androidx.camera.core.ImageCapture
-import androidx.camera.core.Preview
+import androidx.camera.core.*
 import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.core.content.ContextCompat
 import com.pemeluksenja.superscan.databinding.ActivityCameraBinding
@@ -20,7 +19,8 @@ class CameraActivity : AppCompatActivity() {
     private lateinit var cameraExecutor: ExecutorService
 
     private var cameraSelector: CameraSelector = CameraSelector.DEFAULT_BACK_CAMERA
-    private var imageCapture: ImageCapture? = null
+    private var capture: ImageCapture? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityCameraBinding.inflate(layoutInflater)
@@ -28,8 +28,42 @@ class CameraActivity : AppCompatActivity() {
 
         cameraExecutor = Executors.newSingleThreadExecutor()
         cameraSelector = CameraSelector.DEFAULT_BACK_CAMERA
+
+        binding.captureImage.setOnClickListener {
+            takePhoto()
+        }
+
         startCamera()
+
     }
+
+    private fun takePhoto() {
+        val imageCapture = capture ?: return
+        val photoFile = UriUtils.createFile(application)
+
+        val outputOptions = ImageCapture.OutputFileOptions.Builder(photoFile).build()
+        imageCapture.takePicture(
+            outputOptions,
+            ContextCompat.getMainExecutor(this),
+            object : ImageCapture.OnImageSavedCallback {
+                override fun onError(exc: ImageCaptureException) {
+                    Toast.makeText(
+                        this@CameraActivity,
+                        "Gagal mendapatkan gambar",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+
+                override fun onImageSaved(output: ImageCapture.OutputFileResults) {
+                    val intent = Intent(this@CameraActivity, ResultScanActivity::class.java)
+                    intent.putExtra("picture", photoFile)
+                    startActivity(intent)
+                }
+            }
+        )
+
+    }
+
     public override fun onResume() {
         super.onResume()
         hideSystemUI()
@@ -53,7 +87,7 @@ class CameraActivity : AppCompatActivity() {
                     it.setSurfaceProvider(binding.viewFinder.surfaceProvider)
                 }
 
-            imageCapture = ImageCapture.Builder().build()
+            capture = ImageCapture.Builder().build()
 
             try {
                 cameraProvider.unbindAll()
@@ -61,7 +95,7 @@ class CameraActivity : AppCompatActivity() {
                     this,
                     cameraSelector,
                     preview,
-                    imageCapture
+                    capture
                 )
 
             } catch (exc: Exception) {

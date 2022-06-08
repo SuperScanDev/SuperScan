@@ -53,4 +53,6 @@
     <string name="tokenPref">Token Preferences</string>
     <string name="tokenValue">Token Value</string>
     <string name="kirim">Kirim</string>
+    <string name="jumlah_barang">Jumlah Barang</string>
+    <string name="lanjutkan">Lanjutkan</string>
 </resources>
