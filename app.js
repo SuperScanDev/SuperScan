@@ -4,7 +4,7 @@ const dotenv = require("dotenv");
 const dbconnect = require("./config/dbconnect");
 const authRouter = require("./routes/authRouter.js");
 const rateRouter = require("./routes/rateRouter.js");
-const fetchRouter = require("./routes/fetchRouter.js");
+const orderRouter = require("./routes/orderRouter.js");
 const passport = require("passport");
 const session = require("express-session");
 const MongoStore = require("connect-mongo");
@@ -22,11 +22,6 @@ const app = express();
 //body parser
 app.use(express.urlencoded({extended: false}));
 app.use(express.json());
-
-//for deployment testing
-// app.get('/', (req, res) => {
-//     res.send('Hello, superscan is running now!');
-// })
 
 //logging
 app.use(morgan("dev"));
@@ -53,7 +48,7 @@ app.use((error, req, res, next) => {
 //routes
 app.use("/", authRouter);
 app.use("/", rateRouter);
-app.use("/", fetchRouter);
+app.use("/", orderRouter);
 app.use("/", showDocsRouter);
 
 //For security, please write port number in .env file
