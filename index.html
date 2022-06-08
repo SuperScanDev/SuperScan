@@ -70,7 +70,7 @@
           <li>Response</li>
           <samp
             >{ <br />
-            &nbsp; "_id": 62991b054e7e8ee1d59b32d3, <br />
+            &nbsp; "_id": "629a384f52c4918444ccf265", <br />
             &nbsp; "error": false, <br />
             &nbsp; "message": "User created"<br />
             }</samp
@@ -118,6 +118,85 @@
           </samp>
         </ul>
       </section>
+      <section id="fetch" class="pt-lg-4">
+        <h2 class="pt-lg-4">Get the Scanned Product</h2>
+        <ul>
+          <li>Url</li>
+          <ul>
+            <li>/getProduct</li>
+          </ul>
+        </ul>
+        <ul>
+          <li>Method</li>
+          <ul>
+            <li>GET</li>
+          </ul>
+        </ul>
+        <ul>
+          <li>Parameter</li>
+          <ul>
+            <li><code>product_name</code> as string</li>
+          </ul>
+        </ul>
+        <ul>
+          <li>Response</li>
+          <samp class="text-break"
+            >{ <br />
+            &nbsp; "_id": "6298d976f032bafa228cac88", <br />
+            &nbsp; "product_name": "Baygon Wangi Flower Garden", <br />
+            &nbsp; "product_price": 25000, <br />
+            &nbsp; "userId": "629a384f52c4918444ccf265", <br />
+            &nbsp; "product_training_photos":
+            "https://drive.google.com/drive/folders/1cHRh3X3ZbJyZEURi7vFn2sp-Vi6pBc5M",
+            <br />
+            &nbsp; "product_testing_photos":
+            "https://drive.google.com/drive/folders/108tgRrfgdEGSG-bj_PhfhzmA4ObCKgSx"
+            <br />
+            }
+          </samp>
+        </ul>
+      </section>
+      <section id="order" class="pt-lg-4">
+        <h2 class="pt-lg-4">Order</h2>
+        <ul>
+          <li>Url</li>
+          <ul>
+            <li>/order</li>
+          </ul>
+        </ul>
+        <ul>
+          <li>Method</li>
+          <ul>
+            <li>POST</li>
+          </ul>
+        </ul>
+        <ul>
+          <li>Request Body</li>
+          <ul>
+            <li><code>email</code> as string</li>
+            <li><code>password</code> as string</li>
+          </ul>
+        </ul>
+        <ul>
+          <li>Response</li>
+          <samp class="text-break"
+            >{ <br />
+            &nbsp; "error": false, <br />
+            &nbsp; "message": "success", <br />
+            &nbsp; "loginResult": {<br />
+            &nbsp; &nbsp; "userId": "629a384f52c4918444ccf265", <br />
+            &nbsp; &nbsp; "name": "kusuma", <br />
+            &nbsp; &nbsp; "token":
+            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyOWEzODRmNTJjNDkxODQ0NGNjZjI2NSIsImlhdCI6MTY1NDI3NDUwMSwiZXhwIjoxNjU0MjkyNTAxfQ.psh0fr8Z11voM68jguEOSQnUgsGdSXgTEXNygv6Xd70",
+            <br />
+            &nbsp; &nbsp; "email": "kusuma@gmail.com", <br />
+            &nbsp; &nbsp; "avatar":
+            "https://avatars.dicebear.com/4.6/api/micah/kusuma.svg"<br />
+            &nbsp; } <br />
+            }
+          </samp>
+        </ul>
+      </section>
     </div>
 
     <!-- Bootstrap Bundle with Popper -->
@@ -126,8 +205,5 @@
       integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
       crossorigin="anonymous"
     ></script>
-    <script>
-      document.getElementById;
-    </script>
   </body>
 </html>

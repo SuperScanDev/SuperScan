@@ -4,7 +4,8 @@
   "description": "Superscan's APIs",
   "main": "app.js",
   "scripts": {
-    "start": "nodemon app.js"
+    "start": "node app.js",
+    "server": "nodemon app.js"
   },
   "author": {
     "name": "Ikhsan Agil Kusuma",
