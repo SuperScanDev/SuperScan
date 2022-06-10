@@ -76,6 +76,9 @@ class LoginActivity : AppCompatActivity() {
                     val loginResult = resBody.loginResult
                     Log.d("Login: ", resBody.toString())
                     val token = loginResult.token
+                    val userId = loginResult.userId
+                    val userName = loginResult.name
+                    val avatar = loginResult.avatar
                     Log.d("Token: ", token)
                     val context = application
                     val sharedPref = context.getSharedPreferences(
@@ -84,7 +87,13 @@ class LoginActivity : AppCompatActivity() {
                     )
                     val editor = sharedPref.edit()
                     editor.putString(R.string.tokenValue.toString(), token)
-                    Log.d("TokenLoginResult: ", token)
+                    editor.putString(R.string.userId.toString(), userId)
+                    editor.putString(R.string.userName.toString(), userName)
+                    editor.putString(R.string.avatar.toString(), avatar)
+                    Log.d("LoginResult: ", token)
+                    Log.d("LoginResult: ", userId)
+                    Log.d("LoginResult: ", userName)
+                    Log.d("LoginResult: ", avatar)
                     editor.apply()
                     Toast.makeText(this@LoginActivity, "Login Berhasil. Selamat Datang, ${loginResult.name}!", Toast.LENGTH_SHORT).show()
                     startActivity(Intent(this@LoginActivity, MainActivity::class.java))

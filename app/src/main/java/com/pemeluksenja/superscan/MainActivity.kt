@@ -7,16 +7,21 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.view.Gravity
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.drawerlayout.widget.DrawerLayout
+import com.bumptech.glide.Glide
+import com.github.twocoffeesoneteam.glidetovectoryou.GlideToVectorYou
 import com.google.android.material.navigation.NavigationView
 import com.pemeluksenja.superscan.databinding.ActivityMainBinding
+import de.hdodenhof.circleimageview.CircleImageView
 
 
 class MainActivity : AppCompatActivity() {
@@ -64,9 +69,36 @@ class MainActivity : AppCompatActivity() {
             val intent = Intent(this, CameraActivity::class.java)
             startActivity(intent)
         }
+        //get userName, email and avatar from sharedPref
+        val context = application
+        val sharedPref = context.getSharedPreferences(
+            R.string.tokenPref.toString(),
+            Context.MODE_PRIVATE
+        )
+        var userName = sharedPref.getString(R.string.userName.toString(), "")
+        var userEmail = sharedPref.getString(getString(R.string.email), "")
+        var userAvatar = sharedPref.getString(R.string.avatar.toString(), "")
+        Log.d("AvatarMain", userAvatar.toString())
+
         //custom navigation drawer
         val drawer = findViewById<DrawerLayout>(R.id.menudrawer)
         val navMenu = findViewById<NavigationView>(R.id.menunavdrawer)
+        val navHeader = navMenu.getHeaderView(0)
+
+        //set pfp and welcome text
+        val pfp = findViewById<CircleImageView>(R.id.pfpmain)
+        bind.userNameMain.text = " ${userName}!"
+        GlideToVectorYou.justLoadImage(this@MainActivity, Uri.parse(userAvatar), pfp)
+
+        //set pfp, name and email in navigation header
+        val pfpNav = navHeader.findViewById<CircleImageView>(R.id.userPfp)
+        val userNameNav = navHeader.findViewById<TextView>(R.id.username)
+        val userEmailNav = navHeader.findViewById<TextView>(R.id.email)
+
+        GlideToVectorYou.justLoadImage(this@MainActivity, Uri.parse(userAvatar), pfpNav)
+        userNameNav.text = userName
+        userEmailNav.text = userEmail
+
         bind.pfpmain.setOnClickListener {
             drawer.openDrawer(Gravity.START)
         }

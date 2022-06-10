@@ -35,6 +35,7 @@
         android:hint="@string/email"
         android:minWidth="32dp"
         android:minHeight="48dp"
+        android:inputType="textEmailAddress"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView" />
@@ -45,6 +46,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="27dp"
         android:minHeight="48dp"
+        android:inputType="textPassword"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/emailEditTextCustom" />
