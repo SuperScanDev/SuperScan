@@ -14,4 +14,4 @@ Silahkan kunjungi link berikut untuk mengakses link UI Mockup apllikasi kami: [S
 Silahkan kunjungi link berikut untuk mengakses dataset yang kami gunakan pada Capstone Project kami: [Superscan Dataset](https://drive.google.com/drive/folders/1fiG3rScaJnNCW8a3iNYP0g2QJwKM7IhC?usp=sharing)
 
 ## API Documentation
-Silahkan kunjungi link berikut untuk mengakses Dokumentasi API dari aplikasi kami: [Superscan Documentation API](https://superscan-352006.et.r.appspot.com/)
+Silahkan kunjungi link berikut untuk mengakses Dokumentasi API dari aplikasi kami: [Superscan API Documentation](https://superscan-352006.et.r.appspot.com/)
