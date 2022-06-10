@@ -82,7 +82,8 @@ const register = async (req, res) => {
       res.json({
         _id: user._id,
         error: false,
-        message: 'User Created',
+        message: 'User successfully created!',
+        user: user,
       });
     }
   }
