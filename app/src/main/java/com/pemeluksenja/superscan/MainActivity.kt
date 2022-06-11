@@ -11,21 +11,30 @@ import android.util.Log
 import android.view.Gravity
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.drawerlayout.widget.DrawerLayout
+import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.github.twocoffeesoneteam.glidetovectoryou.GlideToVectorYou
 import com.google.android.material.navigation.NavigationView
+import com.pemeluksenja.superscan.adapter.HistoryAdapter
+import com.pemeluksenja.superscan.adapter.HistoryAdapterMain
 import com.pemeluksenja.superscan.databinding.ActivityMainBinding
+import com.pemeluksenja.superscan.viewmodel.HistoryViewModel
+import com.pemeluksenja.superscan.viewmodelfactory.ViewModelFactory
 import de.hdodenhof.circleimageview.CircleImageView
 
 
 class MainActivity : AppCompatActivity() {
     private lateinit var bind: ActivityMainBinding
+    private lateinit var historyViewModel: HistoryViewModel
+    private lateinit var historyAdapter: HistoryAdapterMain
 
     override fun onRequestPermissionsResult(
         requestCode: Int,
@@ -114,6 +123,26 @@ class MainActivity : AppCompatActivity() {
         bind.seeMore.setOnClickListener {
             startActivity(Intent(this, HistoryActivity::class.java))
         }
+
+        historyAdapter = HistoryAdapterMain()
+        historyViewModel = getViewModel(this@MainActivity)
+
+        var userId = sharedPref.getString(R.string.userId.toString(), "")
+        if (userId != null) {
+            historyViewModel.getHistory(userId)
+        }
+        historyViewModel.getHistory().observe(this@MainActivity){item ->
+            if(item != null){
+                historyAdapter.setUserData(item)
+                if (item.size == 0 ){
+                    bind.historyCardEmpty.visibility = View.VISIBLE
+                }else {
+                    bind.historyCardEmpty.visibility = View.INVISIBLE
+                }
+            }
+        }
+        displayRecycle()
+
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -154,6 +183,19 @@ class MainActivity : AppCompatActivity() {
         } catch (ex: ActivityNotFoundException) {
             Toast.makeText(this, "No email clients installed.", Toast.LENGTH_SHORT).show()
         }
+    }
+
+    private fun displayRecycle() {
+        bind.historyRVMain.layoutManager = LinearLayoutManager(this)
+        bind.historyRVMain.adapter = historyAdapter
+    }
+
+    private fun getViewModel(activity: AppCompatActivity): HistoryViewModel {
+        val historyViewModelFactory = ViewModelFactory.getInstance(activity.application)
+        return ViewModelProvider(
+            activity,
+            historyViewModelFactory
+        ).get(HistoryViewModel::class.java)
     }
 
     companion object {

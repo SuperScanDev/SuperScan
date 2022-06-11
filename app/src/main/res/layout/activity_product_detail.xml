@@ -27,14 +27,16 @@
             android:text="@string/detail_produk"
             android:textColor="@color/white" />
     </androidx.appcompat.widget.Toolbar>
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/productDetailRV"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/customtoolbar"
         tools:listitem="@layout/productdetailitems" />
 
     <androidx.cardview.widget.CardView
@@ -71,6 +73,7 @@
                     android:textColor="@color/black"/>
 
                 <TextView
+                    android:id="@+id/totalBills"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
@@ -79,6 +82,7 @@
             </LinearLayout>
 
             <Button
+                android:id="@+id/pay"
                 android:layout_width="100dp"
                 android:layout_height="50dp"
                 android:layout_gravity="center_vertical"

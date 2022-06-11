@@ -59,4 +59,5 @@
     <string name="userName">userName</string>
     <string name="avatar">avatar</string>
     <string name="selamat_datang">Selamat Datang,</string>
+    <string name="bills">bills</string>
 </resources>
