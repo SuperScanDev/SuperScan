@@ -1,15 +1,11 @@
 package com.pemeluksenja.superscan
 
-import android.annotation.SuppressLint
-import android.content.ContentValues.TAG
 import android.content.Intent
 import android.graphics.Bitmap
-import android.graphics.BitmapFactory
 import android.graphics.Matrix
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.WindowInsets
 import android.view.WindowManager
 import android.widget.Toast
@@ -17,7 +13,6 @@ import androidx.camera.core.*
 import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.core.content.ContextCompat
 import com.pemeluksenja.superscan.databinding.ActivityCameraBinding
-import java.nio.ByteBuffer
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
 
@@ -27,9 +22,6 @@ class CameraActivity : AppCompatActivity() {
 
     private var cameraSelector: CameraSelector = CameraSelector.DEFAULT_BACK_CAMERA
     private var capture: ImageCapture? = null
-
-    private lateinit var bitmapBuffer: Bitmap
-    private lateinit var rotationMatrix: Matrix
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

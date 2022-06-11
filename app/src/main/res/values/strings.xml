@@ -55,4 +55,9 @@
     <string name="kirim">Kirim</string>
     <string name="jumlah_barang">Jumlah Barang</string>
     <string name="lanjutkan">Lanjutkan</string>
+    <string name="userId">userId</string>
+    <string name="userName">userName</string>
+    <string name="avatar">avatar</string>
+    <string name="selamat_datang">Selamat Datang,</string>
+    <string name="bills">bills</string>
 </resources>

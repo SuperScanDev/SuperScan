@@ -7,20 +7,34 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.view.Gravity
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.drawerlayout.widget.DrawerLayout
+import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.bumptech.glide.Glide
+import com.github.twocoffeesoneteam.glidetovectoryou.GlideToVectorYou
 import com.google.android.material.navigation.NavigationView
+import com.pemeluksenja.superscan.adapter.HistoryAdapter
+import com.pemeluksenja.superscan.adapter.HistoryAdapterMain
 import com.pemeluksenja.superscan.databinding.ActivityMainBinding
+import com.pemeluksenja.superscan.viewmodel.HistoryViewModel
+import com.pemeluksenja.superscan.viewmodelfactory.ViewModelFactory
+import de.hdodenhof.circleimageview.CircleImageView
 
 
 class MainActivity : AppCompatActivity() {
     private lateinit var bind: ActivityMainBinding
+    private lateinit var historyViewModel: HistoryViewModel
+    private lateinit var historyAdapter: HistoryAdapterMain
 
     override fun onRequestPermissionsResult(
         requestCode: Int,
@@ -64,9 +78,36 @@ class MainActivity : AppCompatActivity() {
             val intent = Intent(this, CameraActivity::class.java)
             startActivity(intent)
         }
+        //get userName, email and avatar from sharedPref
+        val context = application
+        val sharedPref = context.getSharedPreferences(
+            R.string.tokenPref.toString(),
+            Context.MODE_PRIVATE
+        )
+        var userName = sharedPref.getString(R.string.userName.toString(), "")
+        var userEmail = sharedPref.getString(getString(R.string.email), "")
+        var userAvatar = sharedPref.getString(R.string.avatar.toString(), "")
+        Log.d("AvatarMain", userAvatar.toString())
+
         //custom navigation drawer
         val drawer = findViewById<DrawerLayout>(R.id.menudrawer)
         val navMenu = findViewById<NavigationView>(R.id.menunavdrawer)
+        val navHeader = navMenu.getHeaderView(0)
+
+        //set pfp and welcome text
+        val pfp = findViewById<CircleImageView>(R.id.pfpmain)
+        bind.userNameMain.text = " ${userName}!"
+        GlideToVectorYou.justLoadImage(this@MainActivity, Uri.parse(userAvatar), pfp)
+
+        //set pfp, name and email in navigation header
+        val pfpNav = navHeader.findViewById<CircleImageView>(R.id.userPfp)
+        val userNameNav = navHeader.findViewById<TextView>(R.id.username)
+        val userEmailNav = navHeader.findViewById<TextView>(R.id.email)
+
+        GlideToVectorYou.justLoadImage(this@MainActivity, Uri.parse(userAvatar), pfpNav)
+        userNameNav.text = userName
+        userEmailNav.text = userEmail
+
         bind.pfpmain.setOnClickListener {
             drawer.openDrawer(Gravity.START)
         }
@@ -82,6 +123,26 @@ class MainActivity : AppCompatActivity() {
         bind.seeMore.setOnClickListener {
             startActivity(Intent(this, HistoryActivity::class.java))
         }
+
+        historyAdapter = HistoryAdapterMain()
+        historyViewModel = getViewModel(this@MainActivity)
+
+        var userId = sharedPref.getString(R.string.userId.toString(), "")
+        if (userId != null) {
+            historyViewModel.getHistory(userId)
+        }
+        historyViewModel.getHistory().observe(this@MainActivity){item ->
+            if(item != null){
+                historyAdapter.setUserData(item)
+                if (item.size == 0 ){
+                    bind.historyCardEmpty.visibility = View.VISIBLE
+                }else {
+                    bind.historyCardEmpty.visibility = View.INVISIBLE
+                }
+            }
+        }
+        displayRecycle()
+
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -122,6 +183,19 @@ class MainActivity : AppCompatActivity() {
         } catch (ex: ActivityNotFoundException) {
             Toast.makeText(this, "No email clients installed.", Toast.LENGTH_SHORT).show()
         }
+    }
+
+    private fun displayRecycle() {
+        bind.historyRVMain.layoutManager = LinearLayoutManager(this)
+        bind.historyRVMain.adapter = historyAdapter
+    }
+
+    private fun getViewModel(activity: AppCompatActivity): HistoryViewModel {
+        val historyViewModelFactory = ViewModelFactory.getInstance(activity.application)
+        return ViewModelProvider(
+            activity,
+            historyViewModelFactory
+        ).get(HistoryViewModel::class.java)
     }
 
     companion object {

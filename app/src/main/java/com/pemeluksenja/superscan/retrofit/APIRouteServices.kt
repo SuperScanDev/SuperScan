@@ -3,13 +3,12 @@ package com.pemeluksenja.superscan.retrofit
 import com.pemeluksenja.superscan.model.Login
 import com.pemeluksenja.superscan.model.Rate
 import com.pemeluksenja.superscan.model.Register
+import com.pemeluksenja.superscan.response.GetProductResponse
+import com.pemeluksenja.superscan.response.HistoryResponse
 import com.pemeluksenja.superscan.response.LoginResponse
 import com.pemeluksenja.superscan.response.RateResponse
 import retrofit2.Call
-import retrofit2.http.Body
-import retrofit2.http.Header
-import retrofit2.http.Headers
-import retrofit2.http.POST
+import retrofit2.http.*
 
 interface APIRouteServices {
     @Headers("Content-Type: application/json")
@@ -24,5 +23,9 @@ interface APIRouteServices {
     @POST("rate")
     fun rate(@Header("Authorization") Token: String, @Body rate: Rate): Call<RateResponse>
 
+    @GET("getProduct/{product_name}")
+    fun getProduct(@Path ("product_name") product_name: String): Call<GetProductResponse>
 
+    @GET("history/{id}")
+    fun getHistory(@Header("Authorization") Token: String, @Path("id") id: String): Call<HistoryResponse>
 }
