@@ -2,76 +2,46 @@ package com.pemeluksenja.superscan
 
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import androidx.appcompat.app.AppCompatActivity
 import com.pemeluksenja.superscan.UriUtils.Companion.rotateBitmap
 import com.pemeluksenja.superscan.databinding.ActivityResultScanBinding
-import com.pemeluksenja.superscan.ml.SuperScan
-import org.tensorflow.lite.DataType
-import org.tensorflow.lite.support.image.TensorImage
-import org.tensorflow.lite.support.tensorbuffer.TensorBuffer
 import java.io.File
+
 
 class ResultScanActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityResultScanBinding
-    private var getFile: File? = null
+
+    private val mModelPath = "SuperScanV3.tflite"
+    private val mLabelPath = "ListBarang.txt"
+    private lateinit var classifier: Classifier
+    private lateinit var bitmap: Bitmap
+    private val mInputSize = 300
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityResultScanBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val myFile = intent.getSerializableExtra("picture") as File
-        getFile = myFile
-        val result = rotateBitmap(
-            BitmapFactory.decodeFile(getFile?.path)
-        )
+        initClassifier()
 
-        var resized = Bitmap.createScaledBitmap(result, 600, 600, true)
-        val model = SuperScan.newInstance(this)
-        var tbuffer = TensorImage.fromBitmap(resized)
-        var byteBuffer = tbuffer.buffer
+        var results: MutableList<Classifier.Recognition>? = null
+        val myImage = intent.getSerializableExtra("picture") as File
+        bitmap = BitmapFactory.decodeFile(myImage.path)
+        binding.imgResultScan.setImageBitmap(rotateBitmap(bitmap))
+        results = classifier.recognizeImage(bitmap)
+        binding.resultPredict.text = results[0].toString()
 
-        // Creates inputs for reference.
-        val inputFeature0 = TensorBuffer.createFixedSize(intArrayOf(1, 300, 300, 3), DataType.FLOAT32)
-        inputFeature0.loadBuffer(byteBuffer)
-
-        // Runs model inference and gets result.
-        val outputs = model.process(inputFeature0)
-
-        val outputFeature0 = outputs.outputFeature0AsTensorBuffer
-
-        var max = getMax(outputFeature0.floatArray)
-
-        binding.resultPredict.text = outputFeature0.floatArray[max].toString()
-        // Releases model resources if no longer used.
-
-        for (i in 0..49){
-            Log.d("Hasil", outputFeature0.floatArray[i].toString())
+        for (i in results) {
+            Log.d("Hasil", "tes $i")
         }
-        Log.d("qwwqd", outputs.toString())
 
-
-        model.close()
-
-        binding.imgResultScan.setImageBitmap(result)
     }
 
-    fun getMax(arr:FloatArray) : Int{
-        var ind = 0;
-        var min = 0.0f;
-
-        for(i in 0..49)
-        {
-            if(arr[i] > min)
-            {
-                min = arr[i]
-                ind = i;
-            }
-        }
-        return ind
+    private fun initClassifier() {
+        classifier = Classifier(assets, mModelPath, mLabelPath, mInputSize)
     }
 
 }

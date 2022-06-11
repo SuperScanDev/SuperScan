@@ -42,7 +42,7 @@ class UriUtils {
         fun rotateBitmap(bitmap: Bitmap, isBackCamera: Boolean = false): Bitmap {
             val matrix = Matrix()
             return if (isBackCamera) {
-                matrix.postRotate(180f)
+                matrix.postRotate(270f)
                 Bitmap.createBitmap(
                     bitmap,
                     0,
@@ -53,7 +53,7 @@ class UriUtils {
                     true
                 )
             } else {
-                matrix.postRotate(-180f)
+                matrix.postRotate(-270f)
                 matrix.postScale(-1f, 1f, bitmap.width / 2f, bitmap.height / 2f)
                 Bitmap.createBitmap(
                     bitmap,
@@ -94,7 +94,7 @@ class UriUtils {
                 val bmpPicByteArray = bmpStream.toByteArray()
                 streamLength = bmpPicByteArray.size
                 compressQuality -= 5
-            } while (streamLength > 1000000)
+            } while (streamLength > 1080000)
 
             bitmap.compress(Bitmap.CompressFormat.JPEG, compressQuality, FileOutputStream(file))
 
