@@ -6,7 +6,7 @@ const uuid = require("uuid")
 
 const getProduct = asyncHandler(async (req, res) => {
     const product = await Product.findOne({
-        product_name: req.params.product_name,
+        product_name: req.params.product_name.replace(/-/g, " "),
     })
 
     if (product) {
