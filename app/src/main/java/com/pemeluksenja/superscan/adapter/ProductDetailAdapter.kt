@@ -35,7 +35,7 @@ class ProductDetailAdapter(): RecyclerView.Adapter<ProductDetailAdapter.ListView
 
     override fun onBindViewHolder(holder: ListViewHolder, position: Int) {
         val (id, productId, productName, productPrice, productQty,  productPict) = productList[position]
-        val price = Integer.parseInt(productPrice) * productQty
+        val price = productPrice.toString().toInt() * productQty
         if (productList.size == 1) {
             Log.d("Bills", price.toString())
             val sharedPref = holder.itemView.context.getSharedPreferences(
@@ -56,8 +56,8 @@ class ProductDetailAdapter(): RecyclerView.Adapter<ProductDetailAdapter.ListView
 
 
         holder.productName.text = productName
-        holder.productPrice.text = price.toString()
-        holder.productQty.text = "${productQty} buah"
+        holder.productPrice.text = "Rp ${price.toString()}"
+        holder.productQty.text = "$productQty buah"
         Glide.with(holder.itemView.context)
             .load(productPict)
             .circleCrop()

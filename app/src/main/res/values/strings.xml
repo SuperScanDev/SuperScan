@@ -60,4 +60,6 @@
     <string name="avatar">avatar</string>
     <string name="selamat_datang">Selamat Datang,</string>
     <string name="bills">bills</string>
+    <string name="hasil_produk">Hasil Produk</string>
+    <string name="kembali">Kembali</string>
 </resources>

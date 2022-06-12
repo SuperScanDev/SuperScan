@@ -1,6 +1,7 @@
 package com.pemeluksenja.superscan
 
 import android.content.Context
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -39,9 +40,10 @@ class ProductDetailActivity : AppCompatActivity() {
                     val qty = each.quantity
                     val price = each.price
                     val image = each.picture
+                    val productId = each.produtId
                     val id = each.id
 
-                    val product = ProductDetail(1, id.toString(), name, price, qty, image )
+                    val product = ProductDetail(id,productId.toString(), name, price, qty, image )
                     list.add(product)
                     Log.d("ProductList: ", list.toString())
 
@@ -56,7 +58,9 @@ class ProductDetailActivity : AppCompatActivity() {
                 productDetailAdapter.setUserData(list)
             }
         }
-        displayRecycleList()
+
+        bind.productDetailRV.adapter = productDetailAdapter
+        bind.productDetailRV.layoutManager = LinearLayoutManager(this@ProductDetailActivity)
 
         var context = application
         var sharedPref = context.getSharedPreferences(
@@ -67,12 +71,14 @@ class ProductDetailActivity : AppCompatActivity() {
         Log.d("BillsResult", bills.toString())
         bind.totalBills.text = bills.toString()
 
+        bind.backToCamera.setOnClickListener {
+            val intent = Intent(this, CameraActivity::class.java)
+            startActivity(intent)
+            finish()
+        }
 
     }
-    private fun displayRecycleList() {
-        bind.productDetailRV.adapter = productDetailAdapter
-        bind.productDetailRV.layoutManager = LinearLayoutManager(this@ProductDetailActivity)
-    }
+
 
     private fun getViewModel(activity: AppCompatActivity): ProductDetailViewModel {
         val detailViewModelFactory = ViewModelFactory.getInstance(activity.application)

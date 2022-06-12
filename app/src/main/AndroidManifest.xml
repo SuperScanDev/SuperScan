@@ -16,9 +16,6 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.SuperScan">
         <activity
-            android:name=".ResultScanActivity"
-            android:exported="false" />
-        <activity
             android:name=".HistoryDetailActivity"
             android:exported="false" />
         <activity

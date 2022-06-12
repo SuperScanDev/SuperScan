@@ -116,6 +116,7 @@ class Classifier (assetManager: AssetManager, modelPath: String,
         for (i in 0 until recognitionSize){
             recognitions.add(pq.poll())
         }
+        Log.d("hasil", "hasil $recognitions")
         return recognitions
     }
 

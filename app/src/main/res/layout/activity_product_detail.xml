@@ -81,6 +81,17 @@
                     android:textColor="@color/black"/>
             </LinearLayout>
 
+            <ImageButton
+                android:id="@+id/backToCamera"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_gravity="center_vertical"
+                android:backgroundTint="@color/teal_700"
+                android:src="@drawable/ic_baseline_camera_alt_24"
+                android:textColor="@color/white"
+                android:textSize="15sp"
+                android:textStyle="bold" />
+
             <Button
                 android:id="@+id/pay"
                 android:layout_width="100dp"
@@ -91,6 +102,7 @@
                 android:textColor="@color/white"
                 android:textSize="15sp"
                 android:textStyle="bold" />
+
         </LinearLayout>
 
     </androidx.cardview.widget.CardView>
