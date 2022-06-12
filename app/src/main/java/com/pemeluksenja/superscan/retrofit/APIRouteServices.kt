@@ -1,6 +1,7 @@
 package com.pemeluksenja.superscan.retrofit
 
 import com.pemeluksenja.superscan.model.Login
+import com.pemeluksenja.superscan.model.Order
 import com.pemeluksenja.superscan.model.Rate
 import com.pemeluksenja.superscan.model.Register
 import com.pemeluksenja.superscan.response.GetProductResponse
@@ -18,6 +19,11 @@ interface APIRouteServices {
     @Headers("Content-Type: application/json")
     @POST("register")
     fun register(@Body register: Register): Call<Register>
+
+    @Headers("Content-Type: application/json")
+    @POST("order")
+    fun order(@Header("Authorization") Token: String, @Body order: Order): Call<Order>
+
 
     @Headers("Content-Type: application/json")
     @POST("rate")

@@ -14,6 +14,8 @@ class ProductDetailViewModel(application: Application) : ViewModel() {
         productDetailRepository.insert(productDetail)
     }
 
+    fun clear(): Boolean = productDetailRepository.clear()
+
     fun getTotal(): Int = productDetailRepository.getTotal()
 
     fun getProducts(): LiveData<List<ProductDetail>> = productDetailRepository.getProducts()

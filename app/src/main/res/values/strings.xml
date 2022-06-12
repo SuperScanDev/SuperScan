@@ -62,4 +62,6 @@
     <string name="bills">bills</string>
     <string name="hasil_produk">Hasil Produk</string>
     <string name="kembali">Kembali</string>
+    <string name="durasi_kode_aktif">Durasi kode Aktif</string>
+    <string name="_30_menit">30 Menit</string>
 </resources>

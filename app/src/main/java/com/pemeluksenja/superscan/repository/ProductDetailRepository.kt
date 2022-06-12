@@ -22,6 +22,7 @@ class ProductDetailRepository(application: Application) {
         executorService.execute { productDetailDao.insert(productDetail) }
     }
 
+    fun clear(): Boolean = productDetailDao.clear()
     fun getTotal(): Int = productDetailDao.getTotal()
 
     fun getProducts(): LiveData<List<ProductDetail>> = productDetailDao.getProducts()
