@@ -6,12 +6,15 @@ import androidx.lifecycle.ViewModel
 import com.pemeluksenja.superscan.repository.ProductDetailRepository
 import com.pemeluksenja.superscan.room.ProductDetail
 
-class ProductDetailViewModel(application: Application): ViewModel() {
-    private val productDetailRepository: ProductDetailRepository = ProductDetailRepository(application)
+class ProductDetailViewModel(application: Application) : ViewModel() {
+    private val productDetailRepository: ProductDetailRepository =
+        ProductDetailRepository(application)
 
-    fun insert(productDetail: ProductDetail){
+    fun insert(productDetail: ProductDetail) {
         productDetailRepository.insert(productDetail)
     }
+
+    fun getTotal(): Int = productDetailRepository.getTotal()
 
     fun getProducts(): LiveData<List<ProductDetail>> = productDetailRepository.getProducts()
 }

@@ -8,7 +8,7 @@
     >
 
     <androidx.cardview.widget.CardView
-        android:layout_width="309dp"
+        android:layout_width="360dp"
         android:layout_height="82dp"
         android:backgroundTint="@color/white"
         app:cardCornerRadius="10dp"
@@ -19,14 +19,19 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:paddingHorizontal="10dp"
+            >
+
 
             <ImageView
                 android:id="@+id/productImage"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_gravity="center_vertical"
-                android:src="@drawable/cocacola" />
+                android:src="@drawable/cocacola"
+                android:layout_marginEnd="10dp"
+                />
 
             <LinearLayout
                 android:layout_width="0dp"
@@ -42,7 +47,9 @@
                     android:layout_height="wrap_content"
                     android:maxLines="1"
                     android:text="@string/coca_cola"
-                    android:textColor="@color/black" />
+                    android:textColor="@color/black"
+                    android:layout_marginEnd="10dp"
+                    />
 
                 <TextView
                     android:id="@+id/productQty"

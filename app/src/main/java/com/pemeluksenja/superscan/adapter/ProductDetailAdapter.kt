@@ -36,24 +36,6 @@ class ProductDetailAdapter(): RecyclerView.Adapter<ProductDetailAdapter.ListView
     override fun onBindViewHolder(holder: ListViewHolder, position: Int) {
         val (id, productId, productName, productPrice, productQty,  productPict) = productList[position]
         val price = productPrice.toString().toInt() * productQty
-        if (productList.size == 1) {
-            Log.d("Bills", price.toString())
-            val sharedPref = holder.itemView.context.getSharedPreferences(
-                R.string.tokenPref.toString(),
-                Context.MODE_PRIVATE
-            )
-            val editor = sharedPref.edit()
-            editor.putString(R.string.bills.toString(), price.toString())
-            editor.apply()
-        } else {
-            var price = price + price
-            Log.d("Bills", price.toString())
-            val sharedPreferences = holder.itemView.context.getSharedPreferences("MyPreferences", Context.MODE_PRIVATE)
-            val editor = sharedPreferences.edit()
-            editor.putString(R.string.bills.toString(), price.toString())
-            editor.apply()
-        }
-
 
         holder.productName.text = productName
         holder.productPrice.text = "Rp ${price.toString()}"

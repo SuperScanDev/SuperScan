@@ -11,6 +11,9 @@ interface ProductDetailDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insert(productDetail: ProductDetail)
 
+    @Query("SELECT SUM(price) from productdetail")
+    fun getTotal(): Int
+
     @Query("SELECT * from productdetail ORDER BY id ASC")
     fun getProducts(): LiveData<List<ProductDetail>>
 }

@@ -14,13 +14,15 @@ import com.pemeluksenja.superscan.databinding.ActivityProductDetailBinding
 import com.pemeluksenja.superscan.room.ProductDetail
 import com.pemeluksenja.superscan.viewmodel.ProductDetailViewModel
 import com.pemeluksenja.superscan.viewmodelfactory.ViewModelFactory
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import org.json.JSONObject
 
 class ProductDetailActivity : AppCompatActivity() {
     private lateinit var bind: ActivityProductDetailBinding
     private lateinit var productDetailViewModel: ProductDetailViewModel
     private lateinit var productDetailAdapter: ProductDetailAdapter
-    private val list = ArrayList<ProductDetail>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,6 +32,8 @@ class ProductDetailActivity : AppCompatActivity() {
         val toolbar = findViewById<androidx.appcompat.widget.Toolbar>(R.id.customtoolbar)
         setSupportActionBar(toolbar)
         supportActionBar?.setDisplayShowTitleEnabled(false)
+        val list = ArrayList<ProductDetail>()
+
         productDetailAdapter = ProductDetailAdapter()
         productDetailViewModel = getViewModel(this@ProductDetailActivity)
         productDetailViewModel.getProducts().observe(this@ProductDetailActivity) {item ->
@@ -62,14 +66,11 @@ class ProductDetailActivity : AppCompatActivity() {
         bind.productDetailRV.adapter = productDetailAdapter
         bind.productDetailRV.layoutManager = LinearLayoutManager(this@ProductDetailActivity)
 
-        var context = application
-        var sharedPref = context.getSharedPreferences(
-            R.string.tokenPref.toString(),
-            Context.MODE_PRIVATE
-        )
-        var bills = sharedPref.getString(R.string.bills.toString(), "")
-        Log.d("BillsResult", bills.toString())
-        bind.totalBills.text = bills.toString()
+        CoroutineScope(Dispatchers.IO).launch {
+            val bills = productDetailViewModel.getTotal()
+            Log.d("BillsResult", bills.toString())
+            bind.totalBills.text = "Rp ${bills.toString()}"
+        }
 
         bind.backToCamera.setOnClickListener {
             val intent = Intent(this, CameraActivity::class.java)
