@@ -31,6 +31,7 @@
         app:layout_constraintTop_toBottomOf="@+id/kode_pembayaran">
 
         <TextView
+            android:id="@+id/paymentCodeText"
             style="@style/textSizeAndStyle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -94,17 +95,42 @@
         app:layout_constraintTop_toBottomOf="@+id/divider1" />
 
     <TextView
-        android:id="@+id/textView6"
+        android:id="@+id/durasikodeaktif"
+        style="@style/textSizeAndStyle15sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="@string/durasi_kode_aktif"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.111"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/paymentDue" />
+
+    <TextView
+        android:id="@+id/paymentDue"
         style="@style/textSizeAndStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="16dp"
         android:text="@string/senin_16_mei_2022_20_15_wib"
         android:textColor="@color/teal_darker"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.219"
+        app:layout_constraintHorizontal_bias="0.23"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/batasPembayaran" />
+
+    <TextView
+        android:id="@+id/durationCode"
+        style="@style/textSizeAndStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="@string/_30_menit"
+        android:textColor="@color/teal_darker"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.099"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/durasikodeaktif" />
 
     <View
         android:id="@+id/divider2"
@@ -115,7 +141,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView6" />
+        app:layout_constraintTop_toBottomOf="@+id/durationCode" />
 
     <TextView
         android:id="@+id/caraPembayaran"
