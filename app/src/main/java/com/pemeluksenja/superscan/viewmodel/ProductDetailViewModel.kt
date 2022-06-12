@@ -14,7 +14,7 @@ class ProductDetailViewModel(application: Application) : ViewModel() {
         productDetailRepository.insert(productDetail)
     }
 
-    fun clear(): Boolean = productDetailRepository.clear()
+    fun clear() = productDetailRepository.clear()
 
     fun getTotal(): Int = productDetailRepository.getTotal()
 

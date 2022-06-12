@@ -18,5 +18,5 @@ interface ProductDetailDao {
     fun getProducts(): LiveData<List<ProductDetail>>
 
     @Query("DELETE FROM productdetail")
-    fun clear(): Boolean
+    fun clear()
 }

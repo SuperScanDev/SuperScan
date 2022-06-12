@@ -12,6 +12,7 @@ import com.pemeluksenja.superscan.adapter.ProductDetailAdapter
 import com.pemeluksenja.superscan.databinding.ActivityProductDetailBinding
 import com.pemeluksenja.superscan.model.Order
 import com.pemeluksenja.superscan.model.OrderDetail
+import com.pemeluksenja.superscan.response.OrderResponse
 import com.pemeluksenja.superscan.retrofit.APIConfiguration
 import com.pemeluksenja.superscan.room.ProductDetail
 import com.pemeluksenja.superscan.viewmodel.ProductDetailViewModel
@@ -74,6 +75,13 @@ class ProductDetailActivity : AppCompatActivity() {
                 bills = productDetailViewModel.getTotal()
                 Log.d("BillsResult", bills.toString())
                 bind.totalBills.text = "Rp $bills"
+                val context = application
+                val sharedPref = context.getSharedPreferences(
+                    R.string.tokenPref.toString(),
+                    Context.MODE_PRIVATE
+                )
+                val editor = sharedPref.edit()
+                editor.putString(R.string.bills.toString(), bills.toString())
             }
             Log.d("ProductOrder", productList.toString())
 
@@ -102,20 +110,27 @@ class ProductDetailActivity : AppCompatActivity() {
         val token = sharedPref.getString(R.string.tokenValue.toString(), "")
         val model = Order(product, totalBills)
         val client = APIConfiguration.getAPIServices().order("Bearer $token", model)
-        client.enqueue(object : Callback<Order> {
+        client.enqueue(object : Callback<OrderResponse> {
             override fun onResponse(
-                call: Call<Order>,
-                response: Response<Order>
+                call: Call<OrderResponse>,
+                response: Response<OrderResponse>
             ) {
                 if (response.isSuccessful) {
-                    val resBody = response.body()
+                    val resBody = response.body()!!
                     Log.d("OrderResponseBody: ", resBody.toString())
                     Toast.makeText(this@ProductDetailActivity, "Order Berhasil", Toast.LENGTH_SHORT)
                         .show()
                     CoroutineScope(Dispatchers.IO).launch {
                         productDetailViewModel.clear()
                     }
-                    startActivity(Intent(this@ProductDetailActivity, MainActivity::class.java))
+                    val sendData = Intent(this@ProductDetailActivity, PaymentDetailActivity::class.java)
+                    sendData.putExtra(PaymentDetailActivity.EXTRA_CODE, resBody.paymentCode)
+                    var total = sharedPref.getString(R.string.bills.toString(), "")
+                    sendData.putExtra(PaymentDetailActivity.EXTRA_BILLS, total)
+                    sendData.putExtra(PaymentDetailActivity.EXTRA_DUE, resBody.orderAt)
+                    sendData.putExtra(PaymentDetailActivity.EXTRA_DURATION, "30 Menit")
+
+                    startActivity(sendData)
                 } else if (!response.isSuccessful) {
                     val resBody = response.message().toString()
                     Toast.makeText(this@ProductDetailActivity, resBody, Toast.LENGTH_SHORT)
@@ -124,7 +139,7 @@ class ProductDetailActivity : AppCompatActivity() {
                 }
             }
 
-            override fun onFailure(call: Call<Order>, t: Throwable) {
+            override fun onFailure(call: Call<OrderResponse>, t: Throwable) {
                 Toast.makeText(this@ProductDetailActivity, "${t.message}", Toast.LENGTH_SHORT)
                     .show()
                 Log.e("ProductDetailActivity: ", "onFailure: ${t.message}")

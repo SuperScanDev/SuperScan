@@ -4,10 +4,7 @@ import com.pemeluksenja.superscan.model.Login
 import com.pemeluksenja.superscan.model.Order
 import com.pemeluksenja.superscan.model.Rate
 import com.pemeluksenja.superscan.model.Register
-import com.pemeluksenja.superscan.response.GetProductResponse
-import com.pemeluksenja.superscan.response.HistoryResponse
-import com.pemeluksenja.superscan.response.LoginResponse
-import com.pemeluksenja.superscan.response.RateResponse
+import com.pemeluksenja.superscan.response.*
 import retrofit2.Call
 import retrofit2.http.*
 
@@ -22,7 +19,7 @@ interface APIRouteServices {
 
     @Headers("Content-Type: application/json")
     @POST("order")
-    fun order(@Header("Authorization") Token: String, @Body order: Order): Call<Order>
+    fun order(@Header("Authorization") Token: String, @Body order: Order): Call<OrderResponse>
 
 
     @Headers("Content-Type: application/json")
