@@ -1,8 +1,11 @@
 package com.pemeluksenja.superscan
 
+import android.content.Context
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.MenuItem
 import com.pemeluksenja.superscan.databinding.ActivityPaymentDetailBinding
 import com.pemeluksenja.superscan.model.History
 
@@ -13,7 +16,12 @@ class PaymentDetailActivity : AppCompatActivity() {
         bind = ActivityPaymentDetailBinding.inflate(layoutInflater)
         setContentView(bind.root)
 
-//        val payment = intent?.getParcelableExtra<History>(EXTRA_PAYMENT) as History
+        val context = application
+        val sharedPref = context.getSharedPreferences(
+            R.string.tokenPref.toString(),
+            Context.MODE_PRIVATE
+        )
+
         val code = intent.getStringExtra(EXTRA_CODE)
         val bills = intent.getStringExtra(EXTRA_BILLS)
         Log.d("Bills: ", bills.toString())
@@ -25,6 +33,7 @@ class PaymentDetailActivity : AppCompatActivity() {
         }
         val order = due?.substringAfter("2022")
         val sliceOrder = order?.let { due?.split(it) }
+        Log.d("SliceOrder: ", sliceOrder?.get(0)?:"Nan")
         bind.harga.text = bills.toString()
         bind.paymentDue.text = sliceOrder?.get(0) ?: "NaN"
         bind.durationCode.text = duration
@@ -34,6 +43,13 @@ class PaymentDetailActivity : AppCompatActivity() {
 
         // showing the back button in action bar
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when(item.itemId){
+            android.R.id.home -> startActivity(Intent(this@PaymentDetailActivity, MainActivity::class.java))
+        }
+        return true
     }
 
     companion object {

@@ -15,15 +15,7 @@ import com.pemeluksenja.superscan.room.ProductDetail
 
 class HistoryAdapter(): RecyclerView.Adapter<HistoryAdapter.ListViewHolder>() {
     private val historyList = ArrayList<History>()
-    private lateinit var onProfileCallback: OnProfileCallback
 
-    interface OnProfileCallback {
-        fun onProfileClicked(data: History)
-    }
-
-    fun setOnProfileCallback(onProfileCallback: OnProfileCallback) {
-        this.onProfileCallback = onProfileCallback
-    }
     fun setUserData(userItem: ArrayList<History>) {
         historyList.clear()
         historyList.addAll(userItem)
@@ -53,10 +45,6 @@ class HistoryAdapter(): RecyclerView.Adapter<HistoryAdapter.ListViewHolder>() {
         Log.d("OnBindViewHolder: ", id.toString())
         Log.d("OnBindViewHolder: ", orderAt.toString())
         Log.d("OnBindViewHolder: ", totalBills.toString())
-
-        holder.itemView.setOnClickListener {
-            onProfileCallback.onProfileClicked(historyList[holder.adapterPosition])
-        }
     }
 
     override fun getItemCount(): Int = historyList.size

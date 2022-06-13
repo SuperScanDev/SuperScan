@@ -50,23 +50,21 @@ class HistoryActivity : AppCompatActivity() {
 
         val toolbar = findViewById<androidx.appcompat.widget.Toolbar>(R.id.customtoolbar)
         setSupportActionBar(toolbar)
+        toolbar.setOnClickListener {
+            startActivity(Intent(this@HistoryActivity, MainActivity::class.java))
+            finish()
+        }
         supportActionBar?.setDisplayShowTitleEnabled(false)
         displayRecycle()
+    }
+
+    override fun onSupportNavigateUp(): Boolean {
+        onBackPressed()
+        return true
     }
     private fun displayRecycle() {
         bind.historyRV.layoutManager = LinearLayoutManager(this)
         bind.historyRV.adapter = historyAdapter
-        historyAdapter.setOnProfileCallback(object : HistoryAdapter.OnProfileCallback {
-            override fun onProfileClicked(data: History) {
-                chosenProfile(data)
-            }
-        })
-    }
-    private fun chosenProfile(item: History) {
-        val sendData = Intent(this, PaymentDetailActivity::class.java)
-        sendData.putExtra(PaymentDetailActivity.EXTRA_PAYMENT, item)
-        startActivity(sendData)
-        Toast.makeText(this, "Memuat id transaksi " + item.id, Toast.LENGTH_SHORT).show()
     }
 
     private fun getViewModel(activity: AppCompatActivity): HistoryViewModel {

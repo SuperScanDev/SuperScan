@@ -38,15 +38,19 @@ class ProductDetailActivity : AppCompatActivity() {
 
         val toolbar = findViewById<androidx.appcompat.widget.Toolbar>(R.id.customtoolbar)
         setSupportActionBar(toolbar)
+        toolbar.setOnClickListener {
+            startActivity(Intent(this@ProductDetailActivity, CameraActivity::class.java))
+            finish()
+        }
         supportActionBar?.setDisplayShowTitleEnabled(false)
-        val list = ArrayList<ProductDetail>()
+
 
         productDetailAdapter = ProductDetailAdapter()
         productDetailViewModel = getViewModel(this@ProductDetailActivity)
 
 
         productDetailViewModel.getProducts().observe(this@ProductDetailActivity) { item ->
-
+            val list = ArrayList<ProductDetail>()
             if (item != null) {
                 Log.d("ProductDetailActivity", item.toString())
                 for (each in item) {
@@ -82,10 +86,12 @@ class ProductDetailActivity : AppCompatActivity() {
                 )
                 val editor = sharedPref.edit()
                 editor.putString(R.string.bills.toString(), bills.toString())
+                editor.apply()
             }
             Log.d("ProductOrder", productList.toString())
 
             bind.pay.setOnClickListener {
+                Log.d("BillsResultOrder", bills.toString())
                 order(productList, bills.toString())
             }
         }
@@ -99,6 +105,10 @@ class ProductDetailActivity : AppCompatActivity() {
             finish()
         }
 
+    }
+    override fun onSupportNavigateUp(): Boolean {
+        onBackPressed()
+        return true
     }
 
     private fun order(product: ArrayList<OrderDetail>, totalBills: String) {
@@ -125,8 +135,8 @@ class ProductDetailActivity : AppCompatActivity() {
                     }
                     val sendData = Intent(this@ProductDetailActivity, PaymentDetailActivity::class.java)
                     sendData.putExtra(PaymentDetailActivity.EXTRA_CODE, resBody.paymentCode)
-                    var total = sharedPref.getString(R.string.bills.toString(), "")
-                    sendData.putExtra(PaymentDetailActivity.EXTRA_BILLS, total)
+//                    var total = sharedPref.getString(R.string.bills.toString(), "")
+                    sendData.putExtra(PaymentDetailActivity.EXTRA_BILLS, resBody.totalBills.toString())
                     sendData.putExtra(PaymentDetailActivity.EXTRA_DUE, resBody.orderAt)
                     sendData.putExtra(PaymentDetailActivity.EXTRA_DURATION, "30 Menit")
 
@@ -146,6 +156,7 @@ class ProductDetailActivity : AppCompatActivity() {
             }
         })
     }
+
 
 
     private fun getViewModel(activity: AppCompatActivity): ProductDetailViewModel {
