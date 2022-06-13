@@ -8,7 +8,7 @@ Repository ini digunakan sebagai wadah untuk berkolaborasi antar anggota tim unt
 6. **Isna Aulia Fadilla Norsi (M2004F0166)** - **ML**
 
 ## Aplikasi
-Untuk mengakses aplikasi kami, silahkan kunjungi link berikut: [Superscan APK](https://drive.google.com/file/d/1pSLHxCkHtovXGD7-h_3i_vG9yKRxXQyS/view?usp=sharing)
+Untuk mengakses aplikasi kami, silahkan kunjungi link berikut: [Superscan APK](https://drive.google.com/file/d/1wNfyjssMIJWm2hXW2s_WJaD-X6E7TNCr/view?usp=sharing)
 
 ## Figma Design
 Silahkan kunjungi link berikut untuk mengakses link UI Mockup apllikasi kami: [Superscan Figma](https://www.figma.com/file/xJhT0DMOEG5H9X4USQXLkC/SuperScan?node-id=0%3A1)
